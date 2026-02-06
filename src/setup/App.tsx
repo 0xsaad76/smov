@@ -108,76 +108,7 @@ function App() {
   return (
     <Layout>
       <LanguageProvider />
-      {!showDowntime && (
-        <Routes>
-          {/* functional routes */}
-          <Route path="/s/:query" element={<QuickSearch />} />
-          <Route path="/search/:type" element={<Navigate to="/browse" />} />
-          <Route path="/search/:type/:query?" element={<QueryView />} />
-          {/* pages */}
-          <Route
-            path="/media/:media"
-            element={
-              <LegacyUrlView>
-                <Suspense fallback={null}>
-                  <PlayerView />
-                </Suspense>
-              </LegacyUrlView>
-            }
-          />
-          <Route
-            path="/media/:media/:season/:episode"
-            element={
-              <LegacyUrlView>
-                <Suspense fallback={null}>
-                  <PlayerView />
-                </Suspense>
-              </LegacyUrlView>
-            }
-          />
-          <Route path="/browse/:query?" element={<HomePage />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/onboarding" element={<OnboardingPage />} />
-          <Route
-            path="/onboarding/extension"
-            element={<OnboardingExtensionPage />}
-          />
-          <Route path="/onboarding/proxy" element={<OnboardingProxyPage />} />
-          {shouldHaveDmcaPage() ? (
-            <Route path="/dmca" element={<DmcaPage />} />
-          ) : null}
-          {/* Support page */}
-          <Route path="/support" element={<SupportPage />} />
-          <Route path="/jip" element={<JipPage />} />
-          {/* Discover page */}
-          <Route path="/discover" element={<Discover />} />
-          {/* Settings page */}
-          <Route
-            path="/settings"
-            element={
-              <Suspense fallback={null}>
-                <SettingsPage />
-              </Suspense>
-            }
-          />
-          {/* admin routes */}
-          <Route path="/admin" element={<AdminPage />} />
-          {/* other */}
-          <Route path="/dev" element={<DeveloperPage />} />
-          <Route path="/dev/video" element={<VideoTesterView />} />
-          {/* developer routes that can abuse workers are disabled in production */}
-          {process.env.NODE_ENV === "development" ? (
-            <Route path="/dev/test" element={<TestView />} />
-          ) : null}
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      )}
-      {showDowntime && (
-        <MaintenancePage onHomeButtonClick={handleButtonClick} />
-      )}
+      <VideoTesterView />
     </Layout>
   );
 }
